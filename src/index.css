@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .text-outline-black {
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
+    }
+}
