@@ -13,7 +13,7 @@ const Home = () => {
             <h2 className="md:w-8/12 py-4 text-center md:text-left md:py-8 text-gray-700 text-xl lg:text-2xl">
               It may seem comically absurd, but it's true.
             </h2>
-            <div className="w-full flex justify-evenly items-center gap-6 flex-col">
+            <div className="w-full flex justify-evenly items-start gap-6 flex-col">
               <button className="w-full hover:opacity-90 bg-hero-red ring-4 ring-inset ring-hero-yellow border-2 border-hero-red py-3 px-10 lg:py-7 lg:px-20 rounded-full text-white text-lg md:text-2xl f-f-p transition-opacity">Get started</button>
               <button className="w-1/2 hover:opacity-90 bg-hero-blue border-2 border-hero-blue py-3 px-10 lg:py-7 lg:px-20 rounded-full text-white text-lg md:text-2xl f-f-p">Log in</button>
             </div>
