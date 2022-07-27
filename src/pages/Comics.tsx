@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import ComicGridCell from '@components/ComicGridCell'
+import NewComic from '@components/NewComic'
 
 type Comic = {
     image: string,
@@ -56,9 +57,7 @@ const Comics = () => {
             { comics && comics.map((c, i) => (
                 <ComicGridCell {...c} key={i} />
             ))}
-            <div className="flex flex-col items-center justify-center">
-                <button className="bg-hero-red font-bangers tracking-wider text-white text-4xl p-2 border-b-8 border-black hover:border-b-2">Add a new comic</button>
-            </div>
+            <NewComic />
         </div>
     )
 }
