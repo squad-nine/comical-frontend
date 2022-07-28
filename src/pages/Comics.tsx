@@ -56,8 +56,8 @@ const Comics = () => {
     return (
         <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-y-12 lg:gap-x-8 sm:gap-y-10 sm:gap-x-6 gap-y-6 p-6 bg-blue-300">
             { comics && comics.map((c, i) => (
-                  <Link to={`/comics/${i}`}>
-                    <ComicGridCell {...c} key={i} />
+                  <Link to={`/comics/${i}`} key={i}>
+                    <ComicGridCell {...c} />
                   </Link>
             ))}
             <NewComic />
