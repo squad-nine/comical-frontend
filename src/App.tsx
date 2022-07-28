@@ -16,6 +16,7 @@ import {
 } from 'react-router-guarded-routes'
 
 const loginGuard: GuardMiddleware = (_to, _from, next) => {
+  console.log('I got called, here to guard with my react muscle')
   const user = getUser()
   if(user) {
     next()
@@ -31,10 +32,14 @@ function App() {
       <GuardProvider>
         <GuardedRoutes>
             <GuardedRoute index element={<Home />} />
-            <GuardedRoute guards={[loginGuard]} path="/comics/*" >
+            // TODO: Switch to more syntactically awesome nested routes, currently broken.
+            {/* <GuardedRoute guards={[loginGuard]} path="/comics" >
               <GuardedRoute index element={<Comics />} />
               <GuardedRoute path=":id" element={<View />} />
-            </GuardedRoute>
+            </GuardedRoute> */}
+            <GuardedRoute guards={[loginGuard]} path="/comics" element={<Comics />} />
+            <GuardedRoute guards={[loginGuard]} path="/comics/:id" element={<View />} />
+
             <GuardedRoute path="/login" element={<Login />} />
             <GuardedRoute path="/signup" element={<Signup />} />
         </GuardedRoutes>
