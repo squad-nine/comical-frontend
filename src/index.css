@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    #root {
+        height: 100vh;
+    }
+}
+
 @layer utilities {
     .text-outline-black {
         -webkit-text-stroke-width: 1px;
