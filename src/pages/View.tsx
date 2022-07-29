@@ -8,10 +8,10 @@ import DeleteButton from '@components/DeleteButton'
 
 
 type ViewState = {
-    image: string,
-    name: string,
-    issueNum: number
-}
+  image: string;
+  name: string;
+  issueNum: number;
+};
 
 type ViewRouteParams = {
     id: string
