@@ -16,7 +16,7 @@ import {
   type GuardMiddleware
 } from 'react-router-guarded-routes'
 
-const UserContext = createContext<ReturnType<typeof useState<User>>>([undefined, () => {}])
+export const UserContext = createContext<ReturnType<typeof useState<User>>>([undefined, () => {}])
 
 function App() {
 
