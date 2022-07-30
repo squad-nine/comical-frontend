@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export type User = {
     username: string,
     email: string
@@ -10,6 +12,7 @@ type TokenPayload = {
 
 export function setToken(token: string) {
     localStorage.setItem('token', token)
+    axios.defaults.headers.common['Authorization'] = token
 }
 
 function getToken() {
@@ -29,19 +32,20 @@ function decode(token: string) {
     }
 }
 
-export function getUser(): User | null {
+export function getUser(): User | undefined {
     const token = getToken()
     if(token) {
         try {
             return decode(token)
         } catch (e: any) {
-            return null
+            return undefined
         }
     } else {
-        return null
+        return undefined
     }
 }
 
 export function removeToken() {
     localStorage.removeItem('token')
+    delete axios.defaults.headers.common['Authorization']
 }
