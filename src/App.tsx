@@ -17,7 +17,7 @@ import {
 } from "react-router-guarded-routes";
 
 export const UserContext =
-  createContext < ReturnType < typeof useState < User >>> [undefined, () => {}];
+  createContext<ReturnType<typeof useState<User>>> ([undefined, () => {}]);
 const loginGuard: GuardMiddleware = (_to, _from, next) => {
   console.log("I got called, here to guard with my react muscle");
   const user = getUser();
