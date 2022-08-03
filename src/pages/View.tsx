@@ -36,13 +36,27 @@ const View = () => {
     const [ editing, toggleEditing ] = useToggle(false)
     const [ loading, setLoading ] = useState(true)
 
+    const editButtonClick = (submitFunc: Function) => {
+        if(editing) {
+            submitFunc()
+        }
+        toggleEditing()
+    }
+
     return (
         <div className="h-full flex items-center justify-center bg-blue-300">
             <div className="flex flex-col md:flex-row gap-2 bg-dots-pattern bg-dots-color shadow-hard-border border-black p-3">
                 <img src={state.image} alt={state.name} />
                 { !loading && (
-                    <Formik initialValues={state} onSubmit={console.log}>
-                    {() => (
+                    <Formik initialValues={state} onSubmit={(values, { setSubmitting }) => {
+                        setSubmitting(true)
+                        axios.patch<ViewState>(`/api/comics/${id}`, values)
+                            .then(({ data }) => {
+                                setState(data)
+                                setSubmitting(false)
+                            })
+                    }}>
+                    {({ isSubmitting, submitForm }) => (
                         <Form className="font-bangers text-white text-3xl">
                             { editing ? (
                                 <>
@@ -57,7 +71,7 @@ const View = () => {
                                     <h2 className="text-2xl font-bangers tracking-wide text-white text-outline-black">{state.issueNum}</h2>
                                 </>
                             )}
-                            <button onClick={toggleEditing} className="w-full hover:opacity-90 bg-hero-red ring-4 ring-inset ring-hero-yellow border-2 border-hero-red py-3 px-10 lg:py-7 lg:px-20 rounded-full text-white text-lg md:text-2xl f-f-p transition-opacity">Edit</button>
+                            <button disabled={isSubmitting} type="button" onClick={() => editButtonClick(submitForm)} className="w-full hover:opacity-90 bg-hero-red ring-4 ring-inset ring-hero-yellow border-2 border-hero-red py-3 px-10 lg:py-7 lg:px-20 rounded-full text-white text-lg md:text-2xl f-f-p transition-opacity">{ editing ? 'Save Changes' : 'Edit'}</button>
                         </Form>
                     )}
                     </Formik>)
