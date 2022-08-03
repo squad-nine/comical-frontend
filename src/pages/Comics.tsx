@@ -13,12 +13,16 @@ type Comic = {
 
 const Comics = () => {
 
-    const [ comics, setComics ] = useState<Comic[]>()
+    const [ comics, setComics ] = useState<Comic[]>([])
 
     useEffect(() => {
         axios.get<Comic[]>('/api/comics/')
           .then(({ data }) => setComics(data))
     }, [])
+
+    const addComic = (created: Comic) => {
+        setComics([ ...comics, created ])
+    }
 
     return (
         <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-y-12 lg:gap-x-8 sm:gap-y-10 sm:gap-x-6 gap-y-6 p-6 bg-blue-300">
@@ -27,7 +31,7 @@ const Comics = () => {
                     <ComicGridCell {...comic} />
                   </Link>
             ))}
-            <NewComic />
+            <NewComic onCreate={addComic}/>
         </div>
     )
 }

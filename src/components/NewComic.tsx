@@ -1,8 +1,21 @@
+import type { FC } from 'react'
 import { useToggle } from 'react-use'
 import { Formik, Form, Field } from 'formik'
 import TextField from '@components/Fields/Text'
+import axios from 'axios'
 
-const NewComic = () => {
+type Comic = {
+    _id: string,
+    image: string,
+    name: string,
+    issueNum: number
+}
+
+type NewComicProps = {
+    onCreate: (created: Comic) => void
+}
+
+const NewComic: FC<NewComicProps> = ({ onCreate }) => {
 
     const [ collapsed, toggleCollapsed ] = useToggle(true)
 
@@ -17,7 +30,9 @@ const NewComic = () => {
             <Formik initialValues={{
                 name: '',
                 issueNum: ''
-            }} onSubmit={() => {
+            }} onSubmit={async values => {
+                const { data } = await axios.post<Comic>('/api/comics', values)
+                onCreate(data)
                 toggleCollapsed()
             }}>
                 {({ values }) => (
