@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect,} from 'react'
 import { useToggle } from 'react-use'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
 import TextField from '@components/Fields/Text'
 import axios from 'axios'
 import DeleteButton from '@components/DeleteButton'
+
 
 type ViewState = {
     image: string,
@@ -43,7 +44,13 @@ const View = () => {
         }
         toggleEditing()
     }
-
+    const navigate = useNavigate();
+    
+    
+        
+    
+  
+ 
     return (
         <div className="h-full flex items-center justify-center bg-blue-300">
             <div className="flex flex-col md:flex-row gap-2 bg-dots-pattern bg-dots-color shadow-hard-border border-black p-3">
@@ -72,8 +79,14 @@ const View = () => {
                                     <h2 className="text-2xl font-bangers tracking-wide text-white text-outline-black">{state.issueNum}</h2>
                                 </>
                             )}
+                            
+                            
                             <button disabled={isSubmitting} type="button" onClick={() => editButtonClick(submitForm)} className="w-full hover:opacity-90 bg-hero-red ring-4 ring-inset ring-hero-yellow border-2 border-hero-red py-3 px-10 lg:py-7 lg:px-20 rounded-full text-white text-lg md:text-2xl f-f-p transition-opacity">{ editing ? 'Save Changes' : 'Edit'}</button>
                             <DeleteButton docId={id!} />
+                            <>
+          
+          <button onClick={()=>navigate("/comics")} className="w-full hover:opacity-90 bg-hero-red ring-4 ring-inset ring-hero-yellow border-2 border-hero-red py-3 px-10 lg:py-7 lg:px-20 rounded-full text-white text-lg md:text-2xl f-f-p transition-opacity">Back</button>
+        </>
                         </Form>
                     )}
                     </Formik>)
