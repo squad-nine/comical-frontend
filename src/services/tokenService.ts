@@ -15,7 +15,7 @@ export function setToken(token: string) {
     axios.defaults.headers.common['Authorization'] = token
 }
 
-function getToken() {
+export function getToken() {
     const token = localStorage.getItem('token')
     return token
 }
