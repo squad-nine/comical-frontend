@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
-import { createContext, useState, type Dispatch, SetStateAction } from "react";
+import { createContext, useState, type Dispatch, SetStateAction, CSSProperties } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 import Home from "@pages/Home";
 import View from "@pages/View";
 import Comics from "@pages/Comics";
@@ -38,6 +39,7 @@ function App() {
       next("/login");
     }
   };
+
 
   return (
     <BrowserRouter>

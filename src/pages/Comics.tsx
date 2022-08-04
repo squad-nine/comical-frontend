@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, CSSProperties } from 'react'
+import ClipLoader from "react-spinners/ClipLoader"
 import { Link } from 'react-router-dom'
 import ComicGridCell from '@components/ComicGridCell'
 import NewComic from '@components/NewComic'
@@ -11,6 +12,12 @@ type Comic = {
     name: string,
     issueNum: number
 }
+
+const override: CSSProperties = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
+  };
 
 const Comics = () => {
 
@@ -25,7 +32,12 @@ const Comics = () => {
         setComics([ ...comics, created ])
     }
 
+
+    let [loading, setLoading] = useState(true);
+    let[color, setColor] = useState("#ffffff");
+
     return (
+        
         <div className="bg-blue-300 w-screen min-h-screen flex flex-col items-center justify-center p-2">
             <SignoutButton />
             <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-y-12 lg:gap-x-8 sm:gap-y-10 sm:gap-x-6 gap-y-6 p-6 bg-blue-300">
@@ -35,6 +47,11 @@ const Comics = () => {
                       </Link>
                 ))}
                 <NewComic onCreate={addComic}/>
+                <div className="sweet-loading">
+                    <button onClick={() => setLoading(!loading)}>Toggle Loader</button>
+                    <input value={color} onChange={(input) => setColor(input.target.value)} placeholder="Color of the loader" />
+                    <ClipLoader color={color} loading={loading} cssOverride={override} size={150} />
+                </div>  
             </div>
         </div>
     )

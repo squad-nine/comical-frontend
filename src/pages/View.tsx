@@ -84,11 +84,11 @@ const View = () => {
                             )}
                             
                             <button
-                onClick={() => goToWiki()}
-                className="w-full hover:opacity-90 bg-hero-red ring-4 ring-inset ring-hero-yellow border-2 border-hero-red py-3 px-10 lg:py-7 lg:px-20 rounded-full text-white text-lg md:text-2xl f-f-p transition-opacity"
-              >
-                View Page
-              </button>
+                            onClick={() => goToWiki()}
+                            className="w-full hover:opacity-90 bg-hero-red ring-4 ring-inset ring-hero-yellow border-2 border-hero-red py-3 px-10 lg:py-7 lg:px-20 rounded-full text-white text-lg md:text-2xl f-f-p transition-opacity"
+                            >View Page</button>
+                                
+                                            
                             <button disabled={isSubmitting} type="button" onClick={() => editButtonClick(submitForm)} className="w-full hover:opacity-90 bg-hero-red ring-4 ring-inset ring-hero-yellow border-2 border-hero-red py-3 px-10 lg:py-7 lg:px-20 rounded-full text-white text-lg md:text-2xl f-f-p transition-opacity">{ editing ? 'Save Changes' : 'Edit'}</button>
                             <DeleteButton docId={id!} />
                             <>
