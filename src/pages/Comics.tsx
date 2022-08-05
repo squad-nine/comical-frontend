@@ -17,6 +17,7 @@ const override: CSSProperties = {
     display: "block",
     margin: 1,
     borderColor: "red",
+    boxShadow: "8px 8px 15px 5px #888888"
   };
 
 const Comics = () => {
@@ -25,7 +26,10 @@ const Comics = () => {
 
     useEffect(() => {
         axios.get<Comic[]>('/api/comics/')
-          .then(({ data }) => setComics(data))
+          .then(({ data }) =>{
+             setComics(data)
+             setLoading(false)
+         })
     }, [])
 
     const addComic = (created: Comic) => {
@@ -33,12 +37,15 @@ const Comics = () => {
     }
 
     let [loading, setLoading] = useState(true);
-    let[color, setColor] = useState("#0000dc");
+    let[color, setColor] = useState("#d9ed04");
 
     return (
         
         <div className="bg-blue-300 w-screen min-h-screen flex flex-col items-center justify-center p-2">
             <SignoutButton />
+                    {loading && <div className=" border-solid outline-black sweet-loading fixed  h-screen w-screen z-10 bg-opacity-50 bg-gray-500 grid place-items-center top-0 ">
+                    <PacmanLoader color={color} loading={loading} speedMultiplier={1} cssOverride={override} size={55} />
+                </div>  }
             <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-y-12 lg:gap-x-8 sm:gap-y-10 sm:gap-x-6 gap-y-6 p-6 bg-blue-300">
                 { comics && comics.map(({ _id: id, ...comic}) => (
                       <Link to={`/comics/${id}`} key={id}>
@@ -46,10 +53,6 @@ const Comics = () => {
                       </Link>
                 ))}
                 <NewComic onCreate={addComic}/>
-                <div className="sweet-loading z-auto flex justify-self-center absolute pr-80 pt-80">
-                    
-                    <PacmanLoader color={color} loading={loading} speedMultiplier={2} cssOverride={override}  size={45} />
-                </div>  
             </div>
         </div>
     )
