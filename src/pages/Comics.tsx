@@ -1,5 +1,5 @@
 import { useEffect, useState, CSSProperties } from 'react'
-import ClipLoader from "react-spinners/ClipLoader"
+import PacmanLoader from "react-spinners/PacmanLoader"
 import { Link } from 'react-router-dom'
 import ComicGridCell from '@components/ComicGridCell'
 import NewComic from '@components/NewComic'
@@ -15,7 +15,7 @@ type Comic = {
 
 const override: CSSProperties = {
     display: "block",
-    margin: "0 auto",
+    margin: 1,
     borderColor: "red",
   };
 
@@ -32,9 +32,8 @@ const Comics = () => {
         setComics([ ...comics, created ])
     }
 
-
     let [loading, setLoading] = useState(true);
-    let[color, setColor] = useState("#ffffff");
+    let[color, setColor] = useState("#0000dc");
 
     return (
         
@@ -47,10 +46,9 @@ const Comics = () => {
                       </Link>
                 ))}
                 <NewComic onCreate={addComic}/>
-                <div className="sweet-loading">
-                    <button onClick={() => setLoading(!loading)}>Toggle Loader</button>
-                    <input value={color} onChange={(input) => setColor(input.target.value)} placeholder="Color of the loader" />
-                    <ClipLoader color={color} loading={loading} cssOverride={override} size={150} />
+                <div className="sweet-loading z-auto flex justify-self-center absolute pr-80 pt-80">
+                    
+                    <PacmanLoader color={color} loading={loading} speedMultiplier={2} cssOverride={override}  size={45} />
                 </div>  
             </div>
         </div>
