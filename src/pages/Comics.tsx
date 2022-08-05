@@ -52,7 +52,7 @@ const Comics = () => {
                         <ComicGridCell {...comic} />
                       </Link>
                 ))}
-                <NewComic onCreate={addComic}/>
+                <NewComic onCreate={addComic} setLoading={setLoading}/>
             </div>
         </div>
     )

@@ -12,10 +12,11 @@ type Comic = {
 }
 
 type NewComicProps = {
-    onCreate: (created: Comic) => void
+    onCreate: (created: Comic) => void,
+    setLoading: Function
 }
 
-const NewComic: FC<NewComicProps> = ({ onCreate }) => {
+const NewComic: FC<NewComicProps> = ({ onCreate, setLoading }) => {
 
     const [ collapsed, toggleCollapsed ] = useToggle(true)
 
@@ -31,8 +32,10 @@ const NewComic: FC<NewComicProps> = ({ onCreate }) => {
                 name: '',
                 issueNum: ''
             }} onSubmit={async values => {
+                setLoading(true)
                 const { data } = await axios.post<Comic>('/api/comics', values)
                 onCreate(data)
+                setLoading(false)
                 toggleCollapsed()
             }}>
                 {({ values }) => (
