@@ -1,34 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { BrowserRouter } from "react-router-dom";
+import { createContext, useState, type Dispatch, SetStateAction, CSSProperties } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
+import Home from "@pages/Home";
+import View from "@pages/View";
+import Comics from "@pages/Comics";
+import Login from "@pages/Login";
+import Signup from "@pages/Signup";
+
+import { getUser, type User } from "@services/tokenService";
+
+import {
+  GuardConfigProvider,
+  GuardProvider,
+  GuardedRoute,
+  GuardedRoutes,
+  type GuardMiddleware,
+} from "react-router-guarded-routes";
+
+export const UserContext =
+  createContext<ReturnType<typeof useState<User>>> ([undefined, () => {}]);
+const loginGuard: GuardMiddleware = (_to, _from, next) => {
+  console.log("I got called, here to guard with my react muscle");
+  const user = getUser();
+  if (user) {
+    next();
+  } else {
+    next("/login");
+  }
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState<User | undefined>(getUser());
+
+  const loginGuard: GuardMiddleware = (_to, _from, next) => {
+    if (user) {
+      next();
+    } else {
+      next("/login");
+    }
+  };
+
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <BrowserRouter>
+      <GuardConfigProvider>
+        <GuardProvider>
+          <UserContext.Provider value={[user, setUser]}>
+            <GuardedRoutes>
+              <GuardedRoute index element={<Home />} />
+              // TODO: Switch to more syntactically awesome nested routes,
+              currently broken.
+              {/* <GuardedRoute guards={[loginGuard]} path="/comics" >
+                <GuardedRoute index element={<Comics />} />
+                <GuardedRoute path=":id" element={<View />} />
+              </GuardedRoute> */}
+              <GuardedRoute
+                guards={[loginGuard]}
+                path="/comics"
+                element={<Comics />}
+              />
+              <GuardedRoute
+                guards={[loginGuard]}
+                path="/comics/:id"
+                element={<View />}
+              />
+              <GuardedRoute path="/login" element={<Login />} />
+              <GuardedRoute path="/signup" element={<Signup />} />
+            </GuardedRoutes>
+          </UserContext.Provider>
+        </GuardProvider>
+      </GuardConfigProvider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
