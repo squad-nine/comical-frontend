@@ -37,7 +37,7 @@ const Login = () => {
                             navigate('/comics')
                         })
                         .catch(e => {
-                            setStatus({ success: false, message: `Sorry, an unexpected ${e.message} has occured.`})
+                            setStatus({ success: false, message: `username/password incorrect`})
                             setSubmitting(false)
                         })
                 }}>
