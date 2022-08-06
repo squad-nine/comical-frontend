@@ -1,11 +1,15 @@
 import { useContext, type FC } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Formik, Form, Field } from 'formik'
+import * as yup from 'yup'
+import YupPassword from 'yup-password'
 
 import { authRequest } from '@services/userService'
 import EmailField from '@components/Fields/Email'
 import PasswordField from '@components/Fields/Password'
 import { UserContext } from '../App'
+
+YupPassword(yup)
 
 const Login = () => {
 
@@ -13,10 +17,19 @@ const Login = () => {
 
     const [ user, setUser ] = useContext(UserContext)
 
+    const validationSchema = yup.object({
+        email: yup.string().email().required(),
+        password: yup.string().password()
+            .min(8)
+            .minUppercase(1)
+            .minSymbols(1)
+            .required()
+    })
+
     return (
         <div className="h-full w-full py-16 px-4 bg-sky-400">
             <div className="flex flex-col items-center justify-center">
-                <Formik initialValues={{ email: '', password: '', passwordConfirm: '' }} onSubmit={ ({ email, password }, { setSubmitting, setStatus }) => {
+                <Formik validationSchema={validationSchema} initialValues={{ email: '', password: '' }} onSubmit={ ({ email, password }, { setSubmitting, setStatus }) => {
                     setSubmitting(true)
                     authRequest('login', email, password)
                         .then(authenticated => {
