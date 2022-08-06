@@ -1,9 +1,10 @@
-import { Dispatch, SetStateAction, type FC } from 'react'
+import { useState, type Dispatch, SetStateAction, FC } from 'react'
 import { useToggle } from 'react-use'
 import { Formik, Form, Field } from 'formik'
 import TextField from '@components/Fields/Text'
 import axios from 'axios'
 import * as yup from 'yup'
+import ErrorMessage from '@components/ErrorMessage'
 
 type Comic = {
     _id: string,
@@ -28,6 +29,7 @@ const validationSchema = yup.object({
 const NewComic: FC<NewComicProps> = ({ onCreate, setLoading }) => {
 
     const [ collapsed, toggleCollapsed ] = useToggle(true)
+    const [ error, setError ] = useState<string>()
 
     return collapsed 
     ? (
@@ -42,16 +44,23 @@ const NewComic: FC<NewComicProps> = ({ onCreate, setLoading }) => {
                 issueNum: ''
             }} onSubmit={async values => {
                 setLoading(true)
-                const { data } = await axios.post<Comic>('/api/comics', values)
-                onCreate(data)
-                setLoading(false)
-                toggleCollapsed()
+                try {
+                    const { data } = await axios.post<Comic>('/api/comics', values)
+                    onCreate(data)
+                    toggleCollapsed()
+                    setError(undefined)
+                } catch (e: any) {
+                    setError('Could not find this comic, sorry')
+                } finally {
+                    setLoading(false)
+                }
             }}>
                 {({ isValid }) => (
                     <Form className="text-white font-bangers tracking-wide flex flex-col gap-3">
                         <Field name="name" type="text" as={TextField}/>
                         <Field name="issueNum" type="text" as={TextField} />
                         <button disabled={!isValid} type="submit" className="disabled:opacity-80 disabled:cursor-not-allowed bg-hero-red ring-4 ring-inset ring-hero-yellow border-2 border-hero-red py-3 px-10 lg:py-7 lg:px-20 rounded-full text-white text-lg md:text-2xl f-f-p">Add</button>
+                        <ErrorMessage message={error} />
                     </Form>
                 )}
             </Formik>
