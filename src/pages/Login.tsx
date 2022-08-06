@@ -29,7 +29,7 @@ const Login = () => {
     return (
         <div className="h-full w-full py-16 px-4 bg-sky-400">
             <div className="flex flex-col items-center justify-center">
-                <Formik validationSchema={validationSchema} initialValues={{ email: '', password: '' }} onSubmit={ ({ email, password }, { setSubmitting, setStatus }) => {
+                <Formik isInitialValid={false} validationSchema={validationSchema} initialValues={{ email: '', password: '' }} onSubmit={ ({ email, password }, { setSubmitting, setStatus }) => {
                     setSubmitting(true)
                     authRequest('login', email, password)
                         .then(authenticated => {
@@ -58,7 +58,7 @@ const Login = () => {
                                 <div className="border-2 border-hero-yellow p-2 bg-black bg-opacity-50">{status.message}</div>
                             ) : null }
                             <div className="mt-8">
-                                <button type="submit" role="button" aria-label="create my account" className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full disabled:cursor-wait disabled:bg-indigo-400" disabled={isSubmitting || !isValid }>Sign in</button>
+                                <button type="submit" role="button" aria-label="create my account" className="disabled:opacity-80 disabled:cursor-not-allowed w-full bg-hero-red ring-4 ring-inset ring-hero-yellow border-2 border-hero-red py-3 px-10 lg:py-7 lg:px-20 rounded-full text-white text-lg md:text-2xl f-f-p" disabled={isSubmitting || !isValid }>Sign in</button>
                             </div>
                         </Form>
                     )}
