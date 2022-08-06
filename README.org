@@ -1,0 +1,45 @@
+#+Title: Comical Frontend Readme
+
+* Table of Contents :toc:
+- [[#introduction][Introduction]]
+- [[#planning][Planning]]
+- [[#mvp-tasks][MVP Tasks]]
+- [[#technologies-used][Technologies Used]]
+- [[#stretch-goals][Stretch Goals]]
+- [[#the-team][The Team]]
+  - [[#frontend][Frontend]]
+  - [[#backend][Backend]]
+
+* Introduction
+This app will allow you to store your comic book collection on the Web! This app will let you edit,delete,add comic books. When adding comic books it will allow you to put the name, the date you obtained it, and condition of the comic book. This will for comic book collectors if they want to keep track of their collection without the hassle of looking for the physical copy. It will have server that will store the information for future reference Users will be able to create profiles to store their comic book information and toggle them to be public or private Users will be able to view other users profile without editing their comic books
+
+* Planning
+You can view all wireframes and planning materials [[https:github.com/squad-nine/Project-3-Planning][here]]
+
+* MVP Tasks
+- [X] User Can Sign up to create an account
+- [X] User can login after making an account
+- [X] User will be able to create a comic book collection
+- [X] User will be able to view their comic book collection
+- [X] User will be able to look at an individual comic book in their list and edit/delete
+
+* Technologies Used
+- React
+- TypeScript (and JavaScript by extension)
+- Vite (asset and source bundling +dev server)
+- Node.js (the runtime)
+
+* Stretch Goals
+- [ ] Being able to view other users pages
+- [ ] Being able to set profile to public or private
+- [ ] Being able to customize your profile i.e: profile picture,about me
+- [X] Being able to click on the comic book that is attached to a link
+
+* The Team
+- Scrum Master: Brandon Wenning
+** Frontend
+- Will G. :CSS Styling/State management/floater
+- Urvil P. :front-end routes/connecting front-end/back-end
+** Backend
+- Chelsae D: MongoDB connections/models/Schemas/floater
+- Brandon W: CRUD/Routes/back-end/Scrum Master/userauth
