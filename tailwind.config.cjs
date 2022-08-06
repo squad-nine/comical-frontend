@@ -22,7 +22,8 @@ module.exports = {
       },
       boxShadow: {
         'hard-border': '-19px 20px 0px -1px rgba(0,0,0,1);'
-      }
+      },
+      boxShadowColor: heroColors
     },
   },
   plugins: [ require('@tailwindcss/forms'),  require('tailwind-children') ],
