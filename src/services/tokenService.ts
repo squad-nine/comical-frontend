@@ -27,7 +27,6 @@ function decode(token: string) {
         console.error('Expired')
         throw new Error('Token has expired')
     } else {
-        console.log(payload.user)
         return payload.user
     }
 }
